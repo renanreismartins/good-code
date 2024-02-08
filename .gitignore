@@ -1,0 +1,17 @@
+.idea
+*.iml
+target
+.vscode
+
+node_modules/
+
+vendor/
+
+#scala
+target/
+*.class
+*.log
+.bsp/
+
+#Mac
+.DS_Store
