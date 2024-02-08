@@ -10,6 +10,7 @@ import refactoring.repository.ProductCatalog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -50,12 +51,11 @@ public class OrderCreationUseCaseTest {
         tomatoRequest.setId(2);
         tomatoRequest.setQuantity(3);
 
-        final SellItemsRequest request = new SellItemsRequest();
-        request.setRequests(new ArrayList<>());
-        request.getRequests().add(saladRequest);
-        request.getRequests().add(tomatoRequest);
+        List<SellItemRequest> requests = new ArrayList<>();
+        requests.add(saladRequest);
+        requests.add(tomatoRequest);
 
-        useCase.run(request);
+        useCase.run(requests);
 
         final Order insertedOrder = orderRepository.getSavedOrder();
         assertThat(insertedOrder.getStatus()).isEqualTo(OrderStatus.CREATED);
@@ -69,12 +69,11 @@ public class OrderCreationUseCaseTest {
 
     @Test
     public void unknownProduct() throws Exception {
-        SellItemsRequest request = new SellItemsRequest();
-        request.setRequests(new ArrayList<>());
+        List<SellItemRequest> requests = new ArrayList<>();
         SellItemRequest unknownProductRequest = new SellItemRequest();
         unknownProductRequest.setId(-1);
-        request.getRequests().add(unknownProductRequest);
+        requests.add(unknownProductRequest);
 
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(UnknownProductException.class);
+        assertThatThrownBy(() -> useCase.run(requests)).isExactlyInstanceOf(UnknownProductException.class);
     }
 }
