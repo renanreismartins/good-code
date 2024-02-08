@@ -12,7 +12,7 @@ public class InMemoryProductCatalog implements ProductCatalog {
         this.products = products;
     }
 
-    public Product getByName(final String name) {
-        return products.stream().filter(p -> p.getName().equals(name)).findFirst().orElse(null);
+    public Product getById(Integer id) {
+        return products.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
     }
 }

@@ -27,7 +27,7 @@ public class OrderCreationUseCase {
         order.setTax(0D);
 
         for (SellItemRequest itemRequest : request.getRequests()) {
-            Product product = productCatalog.getByName(itemRequest.getProductName());
+            Product product = productCatalog.getById(itemRequest.getId());
 
             if (product == null) {
                 throw new UnknownProductException();

@@ -1,9 +1,18 @@
 package refactoring.domain;
 
 public class Product {
+    private Integer id;
     private String name;
     private Double price;
     private Category category;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

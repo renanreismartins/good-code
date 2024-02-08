@@ -2,21 +2,21 @@ package refactoring.controller;
 
 public class SellItemRequest {
     private int quantity;
-    private String productName;
+    private Integer id;
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public String getProductName() {
-        return productName;
+    public Integer getId() {
+        return id;
     }
 }

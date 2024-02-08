@@ -25,11 +25,13 @@ public class OrderCreationUseCaseTest {
     private final ProductCatalog productCatalog = new InMemoryProductCatalog(
             Arrays.<Product>asList(
                     new Product() {{
+                        setId(1);
                         setName("salad");
                         setPrice(3.56D);
                         setCategory(food);
                     }},
                     new Product() {{
+                        setId(2);
                         setName("tomato");
                         setPrice(4.65D);
                         setCategory(food);
@@ -41,11 +43,11 @@ public class OrderCreationUseCaseTest {
     @Test
     public void sellMultipleItems() throws Exception {
         SellItemRequest saladRequest = new SellItemRequest();
-        saladRequest.setProductName("salad");
+        saladRequest.setId(1);
         saladRequest.setQuantity(2);
 
         SellItemRequest tomatoRequest = new SellItemRequest();
-        tomatoRequest.setProductName("tomato");
+        tomatoRequest.setId(2);
         tomatoRequest.setQuantity(3);
 
         final SellItemsRequest request = new SellItemsRequest();
@@ -70,7 +72,7 @@ public class OrderCreationUseCaseTest {
         SellItemsRequest request = new SellItemsRequest();
         request.setRequests(new ArrayList<>());
         SellItemRequest unknownProductRequest = new SellItemRequest();
-        unknownProductRequest.setProductName("unknown product");
+        unknownProductRequest.setId(-1);
         request.getRequests().add(unknownProductRequest);
 
         assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(UnknownProductException.class);
