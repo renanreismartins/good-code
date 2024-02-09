@@ -1,6 +1,6 @@
 package refactoring.domain;
 
-public class OrderItem {
+public class Item {
     private Product product;
     private int quantity;
     private Double taxedAmount;

@@ -1,7 +1,7 @@
 package refactoring.controller;
 
 import refactoring.domain.Order;
-import refactoring.domain.OrderItem;
+import refactoring.domain.Item;
 import refactoring.domain.OrderStatus;
 import refactoring.domain.Product;
 import refactoring.repository.OrderRepository;
@@ -38,12 +38,12 @@ public class OrderCreationUseCase {
 			    final Double taxedAmount = unitaryTaxedAmount * r.getQuantity();
 			    final Double taxAmount = unitaryTax * r.getQuantity();
 
-			    final OrderItem orderItem = new OrderItem();
-			    orderItem.setProduct(product);
-			    orderItem.setQuantity(r.getQuantity());
-			    orderItem.setTax(taxAmount);
-			    orderItem.setTaxedAmount(taxedAmount);
-			    order.getItems().add(orderItem);
+			    final Item item = new Item();
+			    item.setProduct(product);
+			    item.setQuantity(r.getQuantity());
+			    item.setTax(taxAmount);
+			    item.setTaxedAmount(taxedAmount);
+			    order.getItems().add(item);
 
 			    order.setTotal(order.getTotal() + taxedAmount);
 			    order.setTax(order.getTax() + taxAmount);

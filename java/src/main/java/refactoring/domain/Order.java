@@ -7,7 +7,7 @@ public class Order {
     private int id;
     private Double total;
     private String currency;
-    private List<OrderItem> items;
+    private List<Item> items;
     private Double tax;
     private OrderStatus status;
     private LocalDateTime creationDate;
@@ -39,11 +39,11 @@ public class Order {
         this.currency = currency;
     }
 
-    public List<OrderItem> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<OrderItem> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 
