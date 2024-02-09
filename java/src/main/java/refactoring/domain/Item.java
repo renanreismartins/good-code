@@ -1,17 +1,17 @@
 package refactoring.domain;
 
 public class Item {
-    private Product product;
+    private Integer productId;
     private int quantity;
     private Double taxedAmount;
     private Double tax;
 
-    public Product getProduct() {
-        return product;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public int getQuantity() {

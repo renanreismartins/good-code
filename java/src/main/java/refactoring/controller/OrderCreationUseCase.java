@@ -39,7 +39,7 @@ public class OrderCreationUseCase {
 			    final Double taxAmount = unitaryTax * r.getQuantity();
 
 			    final Item item = new Item();
-			    item.setProduct(product);
+			    item.setProductId(1);
 			    item.setQuantity(r.getQuantity());
 			    item.setTax(taxAmount);
 			    item.setTaxedAmount(taxedAmount);

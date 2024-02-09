@@ -61,9 +61,9 @@ public class OrderCreationUseCaseTest {
         assertThat(insertedOrder.getStatus()).isEqualTo(OrderStatus.CREATED);
         assertThat(insertedOrder.getCurrency()).isEqualTo("EUR");
         assertThat(insertedOrder.getItems()).hasSize(2);
-        assertThat(insertedOrder.getItems().get(0).getProduct().getName()).isEqualTo("salad");
+        assertThat(insertedOrder.getItems().get(0).getProductId()).isEqualTo(1);
         assertThat(insertedOrder.getItems().get(0).getQuantity()).isEqualTo(2);
-        assertThat(insertedOrder.getItems().get(1).getProduct().getName()).isEqualTo("tomato");
+        assertThat(insertedOrder.getItems().get(1).getProductId()).isEqualTo(1);
         assertThat(insertedOrder.getItems().get(1).getQuantity()).isEqualTo(3);
     }
 
