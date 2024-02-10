@@ -48,21 +48,6 @@ public class OrderShipmentUseCaseTest {
     }
 
     @Test
-    public void rejectedOrdersCannotBeShipped() throws Exception {
-        Order initialOrder = new Order();
-        initialOrder.setId(1);
-        initialOrder.setStatus(OrderStatus.REJECTED);
-        orderRepository.addOrder(initialOrder);
-
-        OrderShipmentRequest request = new OrderShipmentRequest();
-        request.setOrderId(1);
-
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(OrderCannotBeShippedException.class);
-        assertThat(orderRepository.getSavedOrder()).isNull();
-        assertThat(shipmentService.getShippedOrder()).isNull();
-    }
-
-    @Test
     public void shippedOrdersCannotBeShippedAgain() throws Exception {
         Order initialOrder = new Order();
         initialOrder.setId(1);

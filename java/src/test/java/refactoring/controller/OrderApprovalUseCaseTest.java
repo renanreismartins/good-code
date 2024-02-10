@@ -31,38 +31,6 @@ public class OrderApprovalUseCaseTest {
     }
 
     @Test
-    public void rejectedExistingOrder() throws Exception {
-        Order initialOrder = new Order();
-        initialOrder.setStatus(OrderStatus.CREATED);
-        initialOrder.setId(1);
-        orderRepository.addOrder(initialOrder);
-
-        OrderApprovalRequest request = new OrderApprovalRequest();
-        request.setOrderId(1);
-        request.setApproved(false);
-
-        useCase.run(request);
-
-        final Order savedOrder = orderRepository.getSavedOrder();
-        assertThat(savedOrder.getStatus()).isEqualTo(OrderStatus.REJECTED);
-    }
-
-    @Test
-    public void cannotApproveRejectedOrder() throws Exception {
-        Order initialOrder = new Order();
-        initialOrder.setStatus(OrderStatus.REJECTED);
-        initialOrder.setId(1);
-        orderRepository.addOrder(initialOrder);
-
-        OrderApprovalRequest request = new OrderApprovalRequest();
-        request.setOrderId(1);
-        request.setApproved(true);
-
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(RejectedOrderCannotBeApprovedException.class);
-        assertThat(orderRepository.getSavedOrder()).isNull();
-    }
-
-    @Test
     public void cannotRejectApprovedOrder() throws Exception {
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.APPROVED);

@@ -4,6 +4,8 @@ import refactoring.domain.Order;
 import refactoring.domain.OrderStatus;
 import refactoring.repository.OrderRepository;
 
+import java.time.LocalDateTime;
+
 public class OrderApprovalUseCase {
     private final OrderRepository orderRepository;
 
@@ -18,15 +20,16 @@ public class OrderApprovalUseCase {
             throw new ShippedOrdersCannotBeChangedException();
         }
 
-        if (request.isApproved() && order.getStatus().equals(OrderStatus.REJECTED)) {
+        if (request.isApproved() && order.getStatus().equals(OrderStatus.APPROVED)) {
             throw new RejectedOrderCannotBeApprovedException();
         }
 
-        if (!request.isApproved() && order.getStatus().equals(OrderStatus.APPROVED)) {
+        if (!request.isApproved()) {
             throw new ApprovedOrderCannotBeRejectedException();
         }
 
-        order.setStatus(request.isApproved() ? OrderStatus.APPROVED : OrderStatus.REJECTED);
+        order.setStatus(OrderStatus.APPROVED);
+        order.setApprovalDate(LocalDateTime.now());
         orderRepository.save(order);
     }
 }

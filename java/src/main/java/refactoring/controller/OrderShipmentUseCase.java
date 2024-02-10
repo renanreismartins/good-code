@@ -5,8 +5,9 @@ import refactoring.domain.OrderStatus;
 import refactoring.repository.OrderRepository;
 import refactoring.service.ShipmentService;
 
+import java.time.LocalDateTime;
+
 import static refactoring.domain.OrderStatus.CREATED;
-import static refactoring.domain.OrderStatus.REJECTED;
 import static refactoring.domain.OrderStatus.SHIPPED;
 
 public class OrderShipmentUseCase {
@@ -21,7 +22,7 @@ public class OrderShipmentUseCase {
     public void run(OrderShipmentRequest request) {
         final Order order = orderRepository.getById(request.getOrderId());
 
-        if (order.getStatus().equals(CREATED) || order.getStatus().equals(REJECTED)) {
+        if (order.getStatus().equals(CREATED)) {
             throw new OrderCannotBeShippedException();
         }
 
@@ -32,6 +33,7 @@ public class OrderShipmentUseCase {
         shipmentService.ship(order);
 
         order.setStatus(OrderStatus.SHIPPED);
+        order.setShipmentDate(LocalDateTime.now());
         orderRepository.save(order);
     }
 }
