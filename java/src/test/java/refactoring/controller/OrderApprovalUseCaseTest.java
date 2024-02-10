@@ -8,10 +8,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
+import refactoring.doubles.TestPaymentService;
 
 public class OrderApprovalUseCaseTest {
     private final TestOrderRepository orderRepository = new TestOrderRepository();
-    private final OrderApprovalUseCase useCase = new OrderApprovalUseCase(orderRepository);
+    private final TestPaymentService paymentService = new TestPaymentService();
+    private final OrderApprovalUseCase useCase = new OrderApprovalUseCase(orderRepository, paymentService);
 
     @Test
     public void approvedExistingOrder() {
@@ -28,6 +30,7 @@ public class OrderApprovalUseCaseTest {
 
         final Order savedOrder = orderRepository.getSavedOrder();
         assertThat(savedOrder.getStatus()).isEqualTo(OrderStatus.APPROVED);
+        assertThat(paymentService.getPaidOrder()).isEqualTo(initialOrder);
     }
 
     @Test
