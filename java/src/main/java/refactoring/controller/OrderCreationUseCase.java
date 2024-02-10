@@ -19,7 +19,7 @@ public class OrderCreationUseCase {
         this.productCatalog = productCatalog;
     }
 
-    public void run(List<SellItemRequest> requests) {
+    public void run(List<Item> requests) {
         Order order = new Order();
         order.setStatus(OrderStatus.CREATED);
         order.setItems(new ArrayList<>());
@@ -28,7 +28,7 @@ public class OrderCreationUseCase {
         order.setTax(0D);
 
 	    requests.forEach(r -> {
-		    Product product = productCatalog.getById(r.getId());
+		    Product product = productCatalog.getById(r.getProductId());
 
 		    if (product == null) {
 			    throw new UnknownProductException();

@@ -1,6 +1,7 @@
 package refactoring.controller;
 
 import refactoring.domain.Category;
+import refactoring.domain.Item;
 import refactoring.domain.Order;
 import refactoring.domain.OrderStatus;
 import refactoring.domain.Product;
@@ -43,15 +44,15 @@ public class OrderCreationUseCaseTest {
 
     @Test
     public void sellMultipleItems() throws Exception {
-        SellItemRequest saladRequest = new SellItemRequest();
-        saladRequest.setId(1);
+        Item saladRequest = new Item();
+        saladRequest.setProductId(1);
         saladRequest.setQuantity(2);
 
-        SellItemRequest tomatoRequest = new SellItemRequest();
-        tomatoRequest.setId(2);
+        Item tomatoRequest = new Item();
+        tomatoRequest.setProductId(2);
         tomatoRequest.setQuantity(3);
 
-        List<SellItemRequest> requests = new ArrayList<>();
+        List<Item> requests = new ArrayList<>();
         requests.add(saladRequest);
         requests.add(tomatoRequest);
 
@@ -69,9 +70,9 @@ public class OrderCreationUseCaseTest {
 
     @Test
     public void unknownProduct() throws Exception {
-        List<SellItemRequest> requests = new ArrayList<>();
-        SellItemRequest unknownProductRequest = new SellItemRequest();
-        unknownProductRequest.setId(-1);
+        List<Item> requests = new ArrayList<>();
+        Item unknownProductRequest = new Item();
+        unknownProductRequest.setProductId(-1);
         requests.add(unknownProductRequest);
 
         assertThatThrownBy(() -> useCase.run(requests)).isExactlyInstanceOf(UnknownProductException.class);
