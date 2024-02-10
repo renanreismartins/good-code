@@ -1,5 +1,7 @@
 package refactoring.controller;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import refactoring.domain.Category;
 import refactoring.domain.Item;
 import refactoring.domain.Order;
@@ -10,40 +12,40 @@ import refactoring.doubles.TestOrderRepository;
 import refactoring.repository.ProductCatalog;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class OrderCreationUseCaseTest {
-    private final TestOrderRepository orderRepository = new TestOrderRepository();
-    private Category food = new Category() {{
-        setName("food");
-        setTaxPercentage(10D);
-    }};;
-    private final ProductCatalog productCatalog = new InMemoryProductCatalog(
-            Arrays.<Product>asList(
-                    new Product() {{
-                        setId(1);
-                        setName("salad");
-                        setPrice(3.56D);
-                        setCategory(food);
-                    }},
-                    new Product() {{
-                        setId(2);
-                        setName("tomato");
-                        setPrice(4.65D);
-                        setCategory(food);
-                    }}
-            )
-    );
-    private final OrderCreationUseCase useCase = new OrderCreationUseCase(orderRepository, productCatalog);
+    private TestOrderRepository orderRepository;
+	private OrderCreationUseCase useCase;
+
+    @BeforeEach
+    public void setup() {
+        Category food = new Category();
+        food.setName("food");
+        food.setTaxPercentage(10D);
+
+        Product salad = new Product();
+        salad.setId(1);
+        salad.setName("salad");
+        salad.setPrice(3.56D);
+        salad.setCategory(food);
+
+        Product tomato = new Product();
+        tomato.setId(2);
+        tomato.setName("tomato");
+        tomato.setPrice(4.65D);
+        tomato.setCategory(food);
+
+	    ProductCatalog productCatalog = new InMemoryProductCatalog(List.of(salad, tomato));
+        orderRepository = new TestOrderRepository();
+        useCase = new OrderCreationUseCase(orderRepository, productCatalog);
+    }
 
     @Test
-    public void sellMultipleItems() throws Exception {
+    public void sellMultipleItems() {
         Item saladRequest = new Item();
         saladRequest.setProductId(1);
         saladRequest.setQuantity(2);
@@ -69,7 +71,7 @@ public class OrderCreationUseCaseTest {
     }
 
     @Test
-    public void unknownProduct() throws Exception {
+    public void unknownProduct() {
         List<Item> requests = new ArrayList<>();
         Item unknownProductRequest = new Item();
         unknownProductRequest.setProductId(-1);

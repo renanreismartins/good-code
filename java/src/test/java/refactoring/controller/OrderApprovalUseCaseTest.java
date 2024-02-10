@@ -14,7 +14,7 @@ public class OrderApprovalUseCaseTest {
     private final OrderApprovalUseCase useCase = new OrderApprovalUseCase(orderRepository);
 
     @Test
-    public void approvedExistingOrder() throws Exception {
+    public void approvedExistingOrder() {
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.CREATED);
         initialOrder.setId(1);
@@ -31,7 +31,7 @@ public class OrderApprovalUseCaseTest {
     }
 
     @Test
-    public void cannotRejectApprovedOrder() throws Exception {
+    public void cannotRejectApprovedOrder() {
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.APPROVED);
         initialOrder.setId(1);
@@ -46,7 +46,7 @@ public class OrderApprovalUseCaseTest {
     }
 
     @Test
-    public void shippedOrdersCannotBeApproved() throws Exception {
+    public void shippedOrdersCannotBeApproved() {
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.SHIPPED);
         initialOrder.setId(1);
@@ -61,7 +61,7 @@ public class OrderApprovalUseCaseTest {
     }
 
     @Test
-    public void shippedOrdersCannotBeRejected() throws Exception {
+    public void shippedOrdersCannotBeRejected() {
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.SHIPPED);
         initialOrder.setId(1);
