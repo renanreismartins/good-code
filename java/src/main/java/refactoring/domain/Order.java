@@ -1,13 +1,15 @@
 package refactoring.domain;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
     private int id;
     private Double total;
     private String currency;
-    private List<Item> items;
+    private ArrayList<Item> items;
     private Double tax;
     private OrderStatus status;
     private LocalDateTime creationDate;
@@ -43,7 +45,7 @@ public class Order {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(ArrayList<Item> items) {
         this.items = items;
     }
 
