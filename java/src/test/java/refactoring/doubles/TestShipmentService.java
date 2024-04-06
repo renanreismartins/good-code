@@ -1,7 +1,10 @@
 package refactoring.doubles;
 
 import refactoring.domain.Order;
+import refactoring.domain.OrderStatus;
 import refactoring.service.ShipmentService;
+
+import java.util.Calendar;
 
 public class TestShipmentService implements ShipmentService {
     private Order shippedOrder = null;
@@ -11,7 +14,11 @@ public class TestShipmentService implements ShipmentService {
     }
 
     @Override
-    public void ship(Order order) {
+    public Calendar calculateShipmentDate(Order order) {
         this.shippedOrder = order;
+
+        // Same as the Mockito: when(order.getStatus).thenReturn(OrderStatus.SHIPPED)
+        order.setStatus(OrderStatus.SHIPPED);
+        return Calendar.getInstance();
     }
 }

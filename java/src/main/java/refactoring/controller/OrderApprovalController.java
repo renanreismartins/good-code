@@ -6,6 +6,7 @@ import refactoring.repository.OrderRepository;
 import refactoring.service.PaymentService;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 public class OrderApprovalController {
     private final OrderRepository orderRepository;
@@ -34,7 +35,7 @@ public class OrderApprovalController {
         paymentService.pay(order);
 
         order.setStatus(OrderStatus.APPROVED);
-        order.setApprovalDate(LocalDateTime.now());
+        order.setApprovalDate(Calendar.getInstance());
         orderRepository.save(order);
 
         return new Response(200);

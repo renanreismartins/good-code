@@ -1,11 +1,10 @@
 package refactoring.controller;
 
 import refactoring.domain.Order;
-import refactoring.domain.OrderStatus;
 import refactoring.repository.OrderRepository;
 import refactoring.service.ShipmentService;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
 
 import static refactoring.domain.OrderStatus.CREATED;
 import static refactoring.domain.OrderStatus.SHIPPED;
@@ -30,10 +29,9 @@ public class OrderShipmentController {
             throw new OrderCannotBeShippedTwiceException();
         }
 
-        shipmentService.ship(order);
+        Calendar shipmentDate = shipmentService.calculateShipmentDate(order);
 
-        order.setStatus(OrderStatus.SHIPPED);
-        order.setShipmentDate(LocalDateTime.now());
+        order.setShipmentDate(shipmentDate);
         orderRepository.save(order);
 
         return new Response(200);

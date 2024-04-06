@@ -2,6 +2,8 @@ package refactoring.service;
 
 import refactoring.domain.Order;
 
+import java.util.Calendar;
+
 public interface ShipmentService {
-    void ship(Order order);
+    Calendar calculateShipmentDate(Order order);
 }

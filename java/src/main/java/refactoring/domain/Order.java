@@ -1,8 +1,8 @@
 package refactoring.domain;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Order {
@@ -12,10 +12,10 @@ public class Order {
     private ArrayList<Item> items;
     private Double tax;
     private OrderStatus status;
-    private LocalDateTime creationDate;
-    private LocalDateTime approvalDate;
-    private LocalDateTime shipmentDate;
-    private LocalDateTime rejectionDate;
+    private Calendar creationDate;
+    private Calendar approvalDate;
+    private Calendar shipmentDate;
+    private Calendar rejectionDate;
 
     public int getId() {
         return id;
@@ -65,35 +65,35 @@ public class Order {
         this.status = status;
     }
 
-    public LocalDateTime getCreationDate() {
+    public Calendar getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(Calendar creationDate) {
         this.creationDate = creationDate;
     }
 
-    public LocalDateTime getApprovalDate() {
+    public Calendar getApprovalDate() {
         return approvalDate;
     }
 
-    public void setApprovalDate(LocalDateTime approvalDate) {
+    public void setApprovalDate(Calendar approvalDate) {
         this.approvalDate = approvalDate;
     }
 
-    public LocalDateTime getShipmentDate() {
+    public Calendar getShipmentDate() {
         return shipmentDate;
     }
 
-    public void setShipmentDate(LocalDateTime shipmentDate) {
+    public void setShipmentDate(Calendar shipmentDate) {
         this.shipmentDate = shipmentDate;
     }
 
-    public LocalDateTime getRejectionDate() {
+    public Calendar getRejectionDate() {
         return rejectionDate;
     }
 
-    public void setRejectionDate(LocalDateTime rejectionDate) {
+    public void setRejectionDate(Calendar rejectionDate) {
         this.rejectionDate = rejectionDate;
     }
 }
