@@ -7,11 +7,11 @@ import refactoring.service.PaymentService;
 
 import java.time.LocalDateTime;
 
-public class OrderApprovalUseCase {
+public class OrderApprovalController {
     private final OrderRepository orderRepository;
     private final PaymentService paymentService;
 
-    public OrderApprovalUseCase(OrderRepository orderRepository, PaymentService paymentService) {
+    public OrderApprovalController(OrderRepository orderRepository, PaymentService paymentService) {
         this.orderRepository = orderRepository;
         this.paymentService = paymentService;
     }

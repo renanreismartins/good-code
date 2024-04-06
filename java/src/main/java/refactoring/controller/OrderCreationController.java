@@ -10,11 +10,11 @@ import refactoring.repository.ProductCatalog;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderCreationUseCase {
+public class OrderCreationController {
     private final OrderRepository orderRepository;
     private final ProductCatalog productCatalog;
 
-    public OrderCreationUseCase(OrderRepository orderRepository, ProductCatalog productCatalog) {
+    public OrderCreationController(OrderRepository orderRepository, ProductCatalog productCatalog) {
         this.orderRepository = orderRepository;
         this.productCatalog = productCatalog;
     }

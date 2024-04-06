@@ -17,9 +17,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class OrderCreationUseCaseTest {
+public class OrderCreationControllerTest {
     private TestOrderRepository orderRepository;
-	private OrderCreationUseCase useCase;
+	private OrderCreationController controller;
 
     @BeforeEach
     public void setup() {
@@ -41,7 +41,7 @@ public class OrderCreationUseCaseTest {
 
 	    ProductCatalog productCatalog = new InMemoryProductCatalog(List.of(salad, tomato));
         orderRepository = new TestOrderRepository();
-        useCase = new OrderCreationUseCase(orderRepository, productCatalog);
+        controller = new OrderCreationController(orderRepository, productCatalog);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class OrderCreationUseCaseTest {
         requests.add(saladRequest);
         requests.add(tomatoRequest);
 
-        useCase.post(requests);
+        controller.post(requests);
 
         final Order insertedOrder = orderRepository.getSavedOrder();
         assertThat(insertedOrder.getStatus()).isEqualTo(OrderStatus.CREATED);
@@ -77,6 +77,6 @@ public class OrderCreationUseCaseTest {
         unknownProductRequest.setProductId(-1);
         requests.add(unknownProductRequest);
 
-        assertThatThrownBy(() -> useCase.post(requests)).isExactlyInstanceOf(UnknownProductException.class);
+        assertThatThrownBy(() -> controller.post(requests)).isExactlyInstanceOf(UnknownProductException.class);
     }
 }

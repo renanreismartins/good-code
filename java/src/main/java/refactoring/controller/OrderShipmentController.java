@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 import static refactoring.domain.OrderStatus.CREATED;
 import static refactoring.domain.OrderStatus.SHIPPED;
 
-public class OrderShipmentUseCase {
+public class OrderShipmentController {
     private final OrderRepository orderRepository;
     private final ShipmentService shipmentService;
 
-    public OrderShipmentUseCase(OrderRepository orderRepository, ShipmentService shipmentService) {
+    public OrderShipmentController(OrderRepository orderRepository, ShipmentService shipmentService) {
         this.orderRepository = orderRepository;
         this.shipmentService = shipmentService;
     }

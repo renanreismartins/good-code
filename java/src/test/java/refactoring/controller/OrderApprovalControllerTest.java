@@ -10,10 +10,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.Test;
 import refactoring.doubles.TestPaymentService;
 
-public class OrderApprovalUseCaseTest {
+public class OrderApprovalControllerTest {
     private final TestOrderRepository orderRepository = new TestOrderRepository();
     private final TestPaymentService paymentService = new TestPaymentService();
-    private final OrderApprovalUseCase useCase = new OrderApprovalUseCase(orderRepository, paymentService);
+    private final OrderApprovalController controller = new OrderApprovalController(orderRepository, paymentService);
 
     @Test
     public void approvedExistingOrder() {
@@ -26,7 +26,7 @@ public class OrderApprovalUseCaseTest {
         request.setOrderId(1);
         request.setApproved(true);
 
-        useCase.run(request);
+        controller.run(request);
 
         final Order savedOrder = orderRepository.getSavedOrder();
         assertThat(savedOrder.getStatus()).isEqualTo(OrderStatus.APPROVED);
@@ -44,7 +44,7 @@ public class OrderApprovalUseCaseTest {
         request.setOrderId(1);
         request.setApproved(false);
         
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(ApprovedOrderCannotBeRejectedException.class);
+        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(ApprovedOrderCannotBeRejectedException.class);
         assertThat(orderRepository.getSavedOrder()).isNull();
     }
 
@@ -59,7 +59,7 @@ public class OrderApprovalUseCaseTest {
         request.setOrderId(1);
         request.setApproved(true);
 
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
+        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
         assertThat(orderRepository.getSavedOrder()).isNull();
     }
 
@@ -74,7 +74,7 @@ public class OrderApprovalUseCaseTest {
         request.setOrderId(1);
         request.setApproved(false);
 
-        assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
+        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
         assertThat(orderRepository.getSavedOrder()).isNull();
     }
 }
