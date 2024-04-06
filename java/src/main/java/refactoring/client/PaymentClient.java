@@ -1,7 +1,7 @@
-package refactoring.service;
+package refactoring.client;
 
 import refactoring.domain.Order;
 
-public interface PaymentService {
+public interface PaymentClient {
     void pay(Order order);
 }

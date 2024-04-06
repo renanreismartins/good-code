@@ -3,18 +3,17 @@ package refactoring.controller;
 import refactoring.domain.Order;
 import refactoring.domain.OrderStatus;
 import refactoring.repository.OrderRepository;
-import refactoring.service.PaymentService;
+import refactoring.client.PaymentClient;
 
-import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class OrderApprovalController {
     private final OrderRepository orderRepository;
-    private final PaymentService paymentService;
+    private final PaymentClient paymentClient;
 
-    public OrderApprovalController(OrderRepository orderRepository, PaymentService paymentService) {
+    public OrderApprovalController(OrderRepository orderRepository, PaymentClient paymentClient) {
         this.orderRepository = orderRepository;
-        this.paymentService = paymentService;
+        this.paymentClient = paymentClient;
     }
 
     public Response post(OrderApprovalRequest request) {
@@ -32,7 +31,7 @@ public class OrderApprovalController {
             throw new ApprovedOrderCannotBeRejectedException();
         }
 
-        paymentService.pay(order);
+        paymentClient.pay(order);
 
         order.setStatus(OrderStatus.APPROVED);
         order.setApprovalDate(Calendar.getInstance());

@@ -8,11 +8,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
-import refactoring.doubles.TestPaymentService;
+import refactoring.doubles.TestPaymentClient;
 
 public class OrderApprovalControllerTest {
     private final TestOrderRepository orderRepository = new TestOrderRepository();
-    private final TestPaymentService paymentService = new TestPaymentService();
+    private final TestPaymentClient paymentService = new TestPaymentClient();
     private final OrderApprovalController controller = new OrderApprovalController(orderRepository, paymentService);
 
     @Test

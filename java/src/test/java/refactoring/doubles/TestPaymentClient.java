@@ -1,9 +1,9 @@
 package refactoring.doubles;
 
 import refactoring.domain.Order;
-import refactoring.service.PaymentService;
+import refactoring.client.PaymentClient;
 
-public class TestPaymentService implements PaymentService {
+public class TestPaymentClient implements PaymentClient {
     private Order paid = null;
 
     public Order getPaidOrder() {
