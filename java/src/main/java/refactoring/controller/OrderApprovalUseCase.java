@@ -4,7 +4,6 @@ import refactoring.domain.Order;
 import refactoring.domain.OrderStatus;
 import refactoring.repository.OrderRepository;
 import refactoring.service.PaymentService;
-import refactoring.service.ShipmentService;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +16,7 @@ public class OrderApprovalUseCase {
         this.paymentService = paymentService;
     }
 
-    public void run(OrderApprovalRequest request) {
+    public Response run(OrderApprovalRequest request) {
         final Order order = orderRepository.getById(request.getOrderId());
 
         if (order.getStatus().equals(OrderStatus.SHIPPED)) {
@@ -37,5 +36,7 @@ public class OrderApprovalUseCase {
         order.setStatus(OrderStatus.APPROVED);
         order.setApprovalDate(LocalDateTime.now());
         orderRepository.save(order);
+
+        return new Response(200);
     }
 }

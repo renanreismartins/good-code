@@ -19,7 +19,7 @@ public class OrderShipmentUseCase {
         this.shipmentService = shipmentService;
     }
 
-    public void run(OrderShipmentRequest request) {
+    public Response run(OrderShipmentRequest request) {
         final Order order = orderRepository.getById(request.getOrderId());
 
         if (order.getStatus().equals(CREATED)) {
@@ -35,5 +35,7 @@ public class OrderShipmentUseCase {
         order.setStatus(OrderStatus.SHIPPED);
         order.setShipmentDate(LocalDateTime.now());
         orderRepository.save(order);
+
+        return new Response(200);
     }
 }

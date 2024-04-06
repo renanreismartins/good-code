@@ -19,7 +19,7 @@ public class OrderCreationUseCase {
         this.productCatalog = productCatalog;
     }
 
-    public void run(List<Item> requests) {
+    public Response post(List<Item> requests) {
         Order order = new Order();
         order.setStatus(OrderStatus.CREATED);
         order.setItems(new ArrayList<>());
@@ -50,5 +50,7 @@ public class OrderCreationUseCase {
 		    }
 	    });
 		orderRepository.save(order);
+
+		return new Response(200);
     }
 }
