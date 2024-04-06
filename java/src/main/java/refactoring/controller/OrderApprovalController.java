@@ -16,7 +16,7 @@ public class OrderApprovalController {
         this.paymentService = paymentService;
     }
 
-    public Response run(OrderApprovalRequest request) {
+    public Response post(OrderApprovalRequest request) {
         final Order order = orderRepository.getById(request.getOrderId());
 
         if (order.getStatus().equals(OrderStatus.SHIPPED)) {

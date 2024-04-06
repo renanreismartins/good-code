@@ -19,7 +19,7 @@ public class OrderShipmentController {
         this.shipmentService = shipmentService;
     }
 
-    public Response run(OrderShipmentRequest request) {
+    public Response post(OrderShipmentRequest request) {
         final Order order = orderRepository.getById(request.getOrderId());
 
         if (order.getStatus().equals(CREATED)) {

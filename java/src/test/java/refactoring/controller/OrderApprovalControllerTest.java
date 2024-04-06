@@ -26,7 +26,7 @@ public class OrderApprovalControllerTest {
         request.setOrderId(1);
         request.setApproved(true);
 
-        controller.run(request);
+        controller.post(request);
 
         final Order savedOrder = orderRepository.getSavedOrder();
         assertThat(savedOrder.getStatus()).isEqualTo(OrderStatus.APPROVED);
@@ -44,7 +44,7 @@ public class OrderApprovalControllerTest {
         request.setOrderId(1);
         request.setApproved(false);
         
-        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(ApprovedOrderCannotBeRejectedException.class);
+        assertThatThrownBy(() -> controller.post(request)).isExactlyInstanceOf(ApprovedOrderCannotBeRejectedException.class);
         assertThat(orderRepository.getSavedOrder()).isNull();
     }
 
@@ -59,7 +59,7 @@ public class OrderApprovalControllerTest {
         request.setOrderId(1);
         request.setApproved(true);
 
-        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
+        assertThatThrownBy(() -> controller.post(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
         assertThat(orderRepository.getSavedOrder()).isNull();
     }
 
@@ -74,7 +74,7 @@ public class OrderApprovalControllerTest {
         request.setOrderId(1);
         request.setApproved(false);
 
-        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
+        assertThatThrownBy(() -> controller.post(request)).isExactlyInstanceOf(ShippedOrdersCannotBeChangedException.class);
         assertThat(orderRepository.getSavedOrder()).isNull();
     }
 }

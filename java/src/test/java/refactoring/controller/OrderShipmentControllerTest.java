@@ -25,7 +25,7 @@ public class OrderShipmentControllerTest {
         OrderShipmentRequest request = new OrderShipmentRequest();
         request.setOrderId(1);
 
-        controller.run(request);
+        controller.post(request);
 
         assertThat(orderRepository.getSavedOrder().getStatus()).isEqualTo(OrderStatus.SHIPPED);
         assertThat(shipmentService.getShippedOrder()).isEqualTo(initialOrder);
@@ -41,7 +41,7 @@ public class OrderShipmentControllerTest {
         OrderShipmentRequest request = new OrderShipmentRequest();
         request.setOrderId(1);
 
-        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(OrderCannotBeShippedException.class);
+        assertThatThrownBy(() -> controller.post(request)).isExactlyInstanceOf(OrderCannotBeShippedException.class);
 
         assertThat(orderRepository.getSavedOrder()).isNull();
         assertThat(shipmentService.getShippedOrder()).isNull();
@@ -57,7 +57,7 @@ public class OrderShipmentControllerTest {
         OrderShipmentRequest request = new OrderShipmentRequest();
         request.setOrderId(1);
 
-        assertThatThrownBy(() -> controller.run(request)).isExactlyInstanceOf(OrderCannotBeShippedTwiceException.class);
+        assertThatThrownBy(() -> controller.post(request)).isExactlyInstanceOf(OrderCannotBeShippedTwiceException.class);
 
         assertThat(orderRepository.getSavedOrder()).isNull();
         assertThat(shipmentService.getShippedOrder()).isNull();
